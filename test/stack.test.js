@@ -12,6 +12,20 @@ class Stack {
     this.top += 1;
     this.items[this.top] = value;
   }
+
+  pop() {
+    if (this.isEmpty()) {
+      throw new Error('Stack is empty');
+    }
+    const poppedItem = this.items[this.top];
+    delete this.items[this.top];
+    this.top -= 1;
+    return poppedItem;
+  }
+
+  isEmpty() {
+    return this.top === -1;
+  }
 }
 
 describe('My Stack', () => {
@@ -36,5 +50,19 @@ describe('My Stack', () => {
     expect(stack.peek).toBe('🌽');
   });
 
-  it.todo('can pop off');
+
+//implement a feature that can pop of stack 
+  it('can pop off', () => {
+    stack.push('🥑');
+    stack.push('🌽');
+
+    const poppedItem = stack.pop();
+    expect(poppedItem).toBe('🌽');
+    expect(stack.top).toBe(0);
+    expect(stack.peek).toBe('🥑');
+  });
+
+  it('throws an error if popped from an empty stack', () => {
+    expect(() => stack.pop()).toThrow('Stack is empty');
+  });
 });
